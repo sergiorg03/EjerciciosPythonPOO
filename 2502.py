@@ -48,7 +48,6 @@ class Jugador:
     def setEstatura(self, estatura):
         self.estatura = estatura
 
-
     def toString(self):
         return f"DNI: {self.getDNI()}, Nombre: {self.getNombre()}, Posición: {self.getPosicion()}, Estatura: {self.getEstatura()}"
 

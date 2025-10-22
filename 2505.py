@@ -8,7 +8,6 @@ También crearemos una función que devuelve muestra todos los palabros.
 
 # Importamos las librerias necesarias
 from random import randint
-from token import COLON
 
 columna1 = ('integrated', 'total', 'systematized', 'parallel', 'functional',
 'responsive', 'optimal', 'synchronized', 'compatible', 'balanced')
@@ -26,13 +25,11 @@ def generateRandomBuzzWord():
     cifra1 = randint(0, len(columna1)-1)
     cifra2 = randint(0, len(columna2)-1)
     cifra3 = randint(0, len(columna3)-1)
-    return f"{columna1[cifra1]} {columna2[cifra2]} {columna3[cifra3]}"
+    return f"{getBuzzWord(cifra1, cifra2, cifra3)}"
 
 # Usamos un único número de 3 cifras (entre 0 y 999) que define nuestro buzzWord
 def generateBuzzWord(id):
-    num1 = id/100
-    num2 = id/10
-    num3 = id/100
+    return f"{getBuzzWord(int(str(id).zfill(3)[0]), int(str(id).zfill(3)[1]), int(str(id).zfill(3)[2])) if 0 <= id <= 999 else "No es posible generar el buzz word"}"
 
 # Devuelve el buzzword asociado a esas 3 cifras
 def getBuzzWord(col1, col2, col3):
@@ -41,13 +38,13 @@ def getBuzzWord(col1, col2, col3):
 # Muestra todos los buzzwords
 def showAllBuzzword():
     #return [[[columna3[k] for k in columna3], columna2[j] for j in columna2], columna1[i]for i in columna1]
-    pass
-    '''for i in columna1:
-        for j in columna2:
-            for k in columna3:
-                print(f"{i} {j} {k}, ")'''
+    lista =  [generateBuzzWord(x) for x in range(0, 999)]
+    return lista
 
 print('Generando una BuzzWord aleatoria: ' + generateRandomBuzzWord())
+id = int(input("Introduce un número para generar una BuzzWord: "))
+print(generateBuzzWord(id))
 print(f"Mostramos todos los palabros posibles: ")
-#showAllBuzzword()
-
+listaAllBuzzWords = showAllBuzzword()
+#print(f"{[x for x in listaAllBuzzWords]}")
+print("\n".join(listaAllBuzzWords))
