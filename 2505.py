@@ -2,7 +2,7 @@
 Crear un generador de palabros técnicos (BuzzWord), con el fin de poder rellenar informes de jerga.
 A partir de 3 columnas de 10 términos generaremos un palabro técnico escogiendo aleatoriamente 1 palabra de cada columna.
 Vamos a utilizar tuplas para guardar la colección de elementos que no cambian.
-También crearemos una función que devuelve muestra todos los palabros.
+También crearemos una función que muestra todos los palabros.
 
 '''
 
