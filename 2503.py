@@ -41,9 +41,10 @@ class Persona:
 
 # socios = {"apodo" : Persona, "apodo2" : Persona2.....}
 socios = {
-    "La pulga" : Persona("Messi", datetime.now()),
-    "El Bicho" : Persona("CR7", datetime.now()),
-    "El Pepe" : Persona("Shrek", datetime.now())
+    "La pulga" : Persona("Messi", datetime(2021, 6, 10)),
+    "El Bicho" : Persona("CR7", datetime(2020, 5, 12)),
+    "El Pepe"  : Persona("Shrek", datetime(2024, 3, 8)),
+    "El niño maravilla": Persona("Kike Montisha", datetime.now()),
 }
 
 opcion = -1
@@ -59,31 +60,53 @@ def bajaSocio(apodo: str):
 
 
 def listadoSocios():
-    return "\n".join(x+", "+socios[x].toString() for x in socios)
+
+    return "\n".join(x+", "+socios[x].toString() for x in sorted(socios))
 
 
 def listadoSociosAntiguedad():
-    pass
+
+    sociosOrdenadosPorAntiguedad = sorted(socios.items(), key=lambda item: item[1].fechaIngreso )
+    #print(sociosOrdenadosPorAntiguedad)
+
+    return [apodo+", "+ persona.toString() for apodo, persona in sociosOrdenadosPorAntiguedad]
 
 
 def modificarSocio(apodo):
     j = socios[apodo]
     opcion = -1
     while opcion != 0:
-        opcion = int(input("¿Qué desea modificar del socio? \n1 --> Nombre. \n2 --> Fecha de ingreso. \n 0 --> Salir. "))
+        opcion = int(input("¿Qué desea modificar del socio? \n1 --> Nombre. \n2 --> Fecha de ingreso. \n0 --> Salir. "))
         if opcion == 1:
             j.setNombre(input("Ingrese el nuevo nombre: "))
         elif opcion == 2:
-            j.setFechaIngreso(date(input("Ingrese la fecha de ingreso en formato yyyy-mm-dd: ")))
+            j.setFechaIngreso(datetime.strptime(input("Ingrese la fecha de ingreso en formato yyyy-mm-dd: "), '%Y-%m-%d'))
         elif opcion == 0:
             print("Saliendo...")
         else:
             print("Opcion no valida")
-    print(f"Socio modificado {socios[apodo].toString()} correctamente. ")
+    print(f"Socio modificado: {socios[apodo].toString()} correctamente. ")
+
+
+def listadoSociosAno():
+    anno = datetime.strptime(input("Ingrese la fecha a partir de la que desea mostrar los socios: "), "%Y")
+    sociosordenados = sorted(socios.items(), key=lambda item: item[1].fechaIngreso)
+
+    sociosFiltrados = [f"Apodo: {apodo}, {persona.toString()}" for apodo, persona in sociosordenados if persona.getFechaIngreso() > anno]
+
+    #return f"Listado de socios a partir del año {anno}: {(apodo+', '+ persona.toString() for apodo, persona in listadoSociosAntiguedad() if persona.getFechaIngreso() > anno )}"
+    return f"Listados de socios a partir del año: {anno.year}.\n" + "\n".join(sociosFiltrados)+"\n" if sociosFiltrados else f"No hay socios dados de alta a partir del año: {anno.year}.\n"
 
 
 while opcion != 7:
-    opcion = int(input("Elige una de las siguientes opciones: \n1. Alta socio. \n2. Baja socio. \n3. Modificación socio. \n4. Listar socios por apodo. \n5. Listar socios por antigüedad. \n6. Listar los socios con alta anterior a un año determinado. \n7. Salir"))
+    opcion = int(input("Elige una de las siguientes opciones: "
+                       "\n1. Alta socio. "
+                       "\n2. Baja socio. "
+                       "\n3. Modificación socio. "
+                       "\n4. Listar socios por apodo. "
+                       "\n5. Listar socios por antigüedad. "
+                       "\n6. Listar los socios con alta anterior a un año determinado. "
+                       "\n7. Salir"))
     if opcion == 1:
         apodo = input("Introduce el apodo del nuevo socio: ")
         nombre = input("Introduce el nombre del nuevo socio: ")
@@ -97,9 +120,9 @@ while opcion != 7:
     elif opcion == 4:
         print(f"Listado de socios: \n{listadoSocios()}")
     elif opcion == 5:
-        print(f"Listado de socios: \n{listadoSociosAntiguedad()}")
+        print(f"Listado de socios: \n{'\n'.join(listadoSociosAntiguedad())}\n")
     elif opcion == 6:
-        pass
+        print(listadoSociosAno())
     elif opcion == 7:
         print("Saliendo...")
     else:
