@@ -53,6 +53,7 @@ class Jugador:
 
 
 if __name__ == '__main__':
+    POSICIONES = ["PORTERO", "DEFENSA", "CENTROCAMPISTA", "DELANTERO"]
     j1 = Jugador("28548847", "SERGIO", "CENTROCAMPISTA", 160)
     j2 = Jugador("28544447", "ANDRES", "DELANTERO", 180)
     j3 = Jugador("23338847", "SULI", "DELANTERO", 190)
@@ -60,6 +61,9 @@ if __name__ == '__main__':
     j5 = Jugador("28523237", "LUIS", "CENTROCAMPISTA", 160)
     plantilla = {6: j1, 5: j2, 7: j3, 2: j4, 3: j5}
 
+'''
+Intentar poner un atributo por defecto en el método y eliminar el método mostrarJugador
+'''
     def mostrar(plantilla):
         for i in plantilla:
             print(f"Jugador con dorsal {i}: {plantilla[i].toString()}")
@@ -67,7 +71,7 @@ if __name__ == '__main__':
     def altaJugador(plantilla, dorsal):
         DNI = input("Introduce el DNI del jugador nuevo: ")
         nombre = input("Introduce el nombre del jugador nuevo: ")
-        pos = input("Introduce la posicion del jugador nuevo (porteros, defensas, centrocampistas o delanteros): ")
+        pos = input("Introduce la posicion del jugador nuevo (portero, defensa, centrocampista o delantero): ")
         altura = int(input("Introduce la altura del jugador nuevo: "))
         j6 = Jugador(DNI, nombre, pos, altura)
         plantilla[dorsal] = j6
@@ -78,7 +82,7 @@ if __name__ == '__main__':
         print("Jugador eliminado correctamente.")
 
     def mostrarJugador(plantilla, dorsal):
-        print(plantilla[dorsal])
+        print(f"Jugador con dorsal {dorsal}: {plantilla[dorsal].toString()}")
 
     def editarJugador(plantilla, dorsal):
         print(f"Editando al jugador {dorsal}.")
@@ -88,7 +92,8 @@ if __name__ == '__main__':
             if opcion == 1:
                 plantilla[dorsal].setNombre(input("Introduce el nombre del jugador: "))
             elif opcion == 2:
-                plantilla[dorsal].setPosicion(input("Introduce la posicion del jugador (portero, defensa, centrocampista o delantero si no se le asignará por defecto una): "))
+                pos = input("Introduce la posicion del jugador (portero, defensa, centrocampista o delantero si no se le asignará por defecto PORTERO): ")
+                plantilla[dorsal].setPosicion(pos if pos.upper() in POSICIONES else "PORTERO")
             elif opcion == 3:
                 plantilla[dorsal].setEstatura(input("Introduce la altura del jugador: "))
             elif opcion == 0:
@@ -100,23 +105,24 @@ if __name__ == '__main__':
     def cambioJugadorDorsal(plantilla, dorsal):
         dni = input("Introduce el DNI del jugador: ")
         nombre = input("Introduce el nombre del jugador: ")
-        posicion = input("Introduce la posicion del jugador (portero, defensa, centrocampista o delantero si no se le asignará por defecto una): ")
+        posicion = input("Introduce la posicion del jugador (portero, defensa, centrocampista o delantero si no se le asignará por defecto PORTERO): ")
+        posicion = posicion if posicion.upper() in POSICIONES else "portero"
         estatura = input("Introduce la altura del jugador: ")
-        plantilla[dorsal] = Jugador(dni, nombre, posicion, estatura)
+        plantilla[dorsal] = Jugador(dni, nombre, posicion, int(estatura))
 
 
 
 
-    print("PLANTILLA ACTUAL ..................")
+    '''print("PLANTILLA ACTUAL ..................")
     mostrar(plantilla)
-    print("Alta del jugador con el dorsal 10 ..........")
+    print("\nAlta del jugador con el dorsal 10 ..........")
     altaJugador(plantilla, 10);
-    print("Elimina al jugador con el dorsal 7 ..........")
+    print("\nElimina al jugador con el dorsal 7 ..........")
     eliminarJugador(plantilla, 7)
-    print("PLANTILLA ACTUAL ..................")
-    mostrar(plantilla)
-    print("Edita al jugador con el dorsal 2 ..........")
+    print("\nPLANTILLA ACTUAL ..................")
+    mostrar(plantilla)'''
+    print("\nEdita al jugador con el dorsal 2 ..........")
     editarJugador(plantilla, 2)
-    cambioJugadorDorsal(plantilla, 2) # Sustitución de un jugador por otro
-    print("PLANTILLA ACTUAL ..................")
+    #cambioJugadorDorsal(plantilla, 2) # Sustitución de un jugador por otro
+    print("\nPLANTILLA ACTUAL ..................")
     mostrar(plantilla)
