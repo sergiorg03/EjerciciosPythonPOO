@@ -5,9 +5,7 @@
 '''
 
 import random
-
 import os
-
 import string
 
 class generador_clave:
@@ -90,9 +88,6 @@ class generador_clave:
             robustez += 1
 
         return robustez
-            
-
-
 
     def guardarClave(self,clave,ruta: str = 'claves.txt'):
         with open(ruta, 'w') as f:
