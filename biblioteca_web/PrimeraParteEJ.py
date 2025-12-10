@@ -19,3 +19,4 @@ biblio.prestar_libro('1234567789124')
 
 print(biblio.mostrar_libros())
 
+print(biblio.buscar_por_titulo("1"))
