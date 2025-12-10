@@ -5,8 +5,8 @@ from datetime import datetime
 
 con = None
 
+# Sentencias CREACIÓN Y BORRADO DE
 __NOMBRE_DB = "empresa.db"
-
 __DROP_EMPLEADOS = "DROP TABLE IF EXISTS empleados"
 __DROP_OFICINAS = "DROP TABLE IF EXISTS oficinas"
 __SENTENCIA_EMPLEADOS = f"""CREATE TABLE IF NOT EXISTS empleados (
@@ -130,23 +130,37 @@ if __name__ == '__main__':
         con = opendb()
         cursor = con.cursor()
 
+        print("-"*20,"Mostramos los empleados","-"*20)
+        print()
         # Mostramos todos los empleados
         cursor.execute("SELECT * FROM empleados")
         empleados = cursor.fetchall()
-        #print(empleados)
+        print(empleados)
 
+
+        print("\n"*2)
+        print("-"*20,"Mostramos las oficinas de una determinada ciudad","-"*20)
+        print()
         # Mostramos las oficinas de una determinada ciudad
         cursor.execute("SELECT * FROM oficinas WHERE UPPER(ciudad) = 'SEVILLA'")
         oficinas = cursor.fetchall()
-        #print(oficinas)
+        print(oficinas)
 
+
+        print("\n"*2)
+        print("-"*20,"Mostramos el nombre y la edad de empleados cuya edad está en un rango ","-"*20)
+        print()
         # Nombre y edad de los empleados cuya edad se encuentra en un rango
         cursor.execute("""SELECT nombre, (strftime('%Y', 'now') - strftime('%Y', fecha_nacimiento)) AS edad
 	                        FROM empleados
 	                        WHERE edad BETWEEN ?  AND ?
-                            ORDER BY edad ASC""", (28, 40))
-        #print(cursor.fetchall())
+                            ORDER BY edad ASC""", (30, 38))
+        print(cursor.fetchall())
 
+
+        print("\n"*2)
+        print("-"*20,"Alta de un nuevo empleado","-"*20)
+        print()
         # Alta de un nuevo empleado
         name = input("Inrtoduce el nombre del nuevo empleado: \n")
         fecha_nacimiento = datetime.strptime(input("Introduce la fecha de nacimiento del nuevo empleado en formato dd-mm-yyyy: \n"), '%d-%m-%Y')
@@ -161,6 +175,9 @@ if __name__ == '__main__':
             print(f"Se produjo un error a la hora de insertar al nuevo empleado. ")
 
 
+        print("\n"*2)
+        print("-"*20,"Alta de una nueva oficina","-"*20)
+        print()
         # Alta de una nueva oficina
         domicilio = input("Introduzca la calle de la nueva oficina: \n")
         ciudad = input("Introduzca la ciudad de la nueva oficina: \n")
@@ -175,6 +192,10 @@ if __name__ == '__main__':
         cursor.execute("SELECT id_ofi FROM oficinas WHERE UPPER(domicilio) = ? AND UPPER(ciudad) = ? AND superficie = ?", (domicilio.upper(), ciudad.upper(), superficie))
         print(f"ID de la última oficina añadida: {cursor.fetchall()}")
 
+
+        print("\n"*2)
+        print("-"*20,"Cambio de oficina de los empleados","-"*20)
+        print()
         # Cambio de oficina de los empleados
         of_a_modif = input("Introduzca la oficina de la que quiere modificar a los empleados: \n")
         nueva_of = input("Introduzca el ID de la nueva oficina a asignar los empleados: \n")
@@ -187,10 +208,18 @@ if __name__ == '__main__':
         cursor.execute("SELECT * FROM empleados WHERE oficina = ?", (nueva_of,))
         print(cursor.fetchall())
 
+
+        print("\n"*2)
+        print("-"*20,"Empleados de la oficina con mayor superficie","-"*20)
+        print()
         # Empleados de la oficina con mayor superficie
         cursor.execute("SELECT id_emp, Nombre, puesto FROM empleados WHERE oficina = (SELECT id_ofi FROM oficinas ORDER BY superficie DESC LIMIT 1)")
         print(cursor.fetchall())
 
+
+        print("\n"*2)
+        print("-"*20,"Borrado de un empleado","-"*20)
+        print()
         # Eliminado de un empleado
         id_emp = input("Introduzca el ID del empleado a eliminar: \n")
         cursor.execute("DELETE FROM empleados WHERE id_emp = ?", (id_emp,))
@@ -198,15 +227,23 @@ if __name__ == '__main__':
         cursor.execute("SELECT COUNT(*) FROM empleados WHERE id_emp = ?", (id_emp,))
         print(cursor.fetchall())
 
+
+        print("\n"*2)
+        print("-"*20,"Oficinas con extensión superior a la introducida","-"*20)
+        print()
         # Oficinas con extensión superior a la introducida
         print("Extensión de las oficinas en orden descendente. ")
         print(cursor.execute("SELECT id_ofi AS id, superficie FROM oficinas ORDER BY superficie DESC").fetchall())
+        print()
         ext = input("Introduzca la extension mínima de la oficina: \n")
         print("Oficinas con extensión superior a la introducida. ")
         cursor.execute("SELECT id_ofi, ciudad, superficie FROM oficinas WHERE superficie > ? ORDER BY superficie DESC", (ext,))
         print(cursor.fetchall())
 
-        # 
+        print("\n"*2)
+        print("-"*20,"Modificación de una oficina indicada","-"*20)
+        print()
+        # Modificación de una oficina indicada
         ofi = input("Introduzca el ID de la oficina a modificar: \n")
         nuevo_dom = input("Introduzca el nuevo domicilio de la oficina: \n")
         print(f"Antes de la modificación: {cursor.execute("SELECT * FROM oficinas WHERE id_ofi = ?", (ofi,)).fetchall()}")
