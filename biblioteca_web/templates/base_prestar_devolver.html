@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Biblioteca Central{% endblock %}
+
+{% block content %}
+<!--<h2 align="center" style="color: white; border-bottom: 10px;">
+    Acciones con libros:
+</h2>
+
+<nav style="display: flex; justify-content: center; align-items: flex-start; text-align: center;">
+
+    <a href="../templates/prestar_libro"
+        style="margin: 0 15px; color: white; text-decoration: none; font-weight: bold;">
+
+        Prestar Libro
+
+        <p style="color: white; font-weight: normal;">
+            Solicita el prestamo de un libro.
+        </p>
+    </a>
+    <a href="../templates/devolver_libro"
+        style="margin: 0 15px; color: white; text-decoration: none; font-weight: bold;">
+
+        Devolver Libro
+
+        <p style="color: white; font-weight: normal;">
+            Devuelve un libro prestado.
+        </p>
+    </a>
+</nav>-->
+<div>
+
+    <div style="display: flex; justify-content: center; align-items: center; padding: 40px;">
+        <div style="background-color: white; padding: 30px; border-radius: 12px; 
+                box-shadow: 0 4px 15px rgba(0,0,0,0.15); width: 100%; max-width: 400px; text-align: center;">
+
+            <h2
+                style="color: #333; margin-bottom: 20px; font-family: sans-serif; font-size: clamp(14px, 2vw + 1rem, 24px);">
+                Introduzca el
+                ISBN del libro</h2>
+
+            <form action="/tu-ruta-de-procesamiento" method="POST">
+                <label for="isbn"
+                    style="display: block; text-align: left; margin-bottom: 8px; color: #555; font-weight: bold;">
+                    Introduce el ISBN:
+                </label>
+
+                <input type="text" id="isbn" name="isbn" placeholder="Ej: 978-3-16-148410-0" required style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; 
+                       border-radius: 6px; box-sizing: border-box; font-size: 16px;">
+
+                <button type="submit" style="width: 100%; padding: 12px; background-color: #007bff; color: white; 
+                       border: none; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold;">
+                    Solicitar prestamo
+                </button>
+                <buttontype="submit" style="width: 100%; padding: 12px; background-color: #007bff; color: white; 
+                       border: none; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold;">
+                    Solicitar devolución
+                    </buttontype=>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

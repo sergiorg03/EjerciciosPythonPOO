@@ -22,8 +22,8 @@ class Libro:
         else:
             print(f"El libro {self.titulo} no está prestado. ")
         
-    def __str__(self):
-        return f"El libro \"{self.titulo}\" de {self.autor} con ISBN: {self.isbn} {"Está disponible. " if self.disponible else "No está disponible. "}"
+    '''def __str__(self):
+        return f"El libro \"{self.titulo}\" de {self.autor} con ISBN: {self.isbn} {"Está disponible. " if self.disponible else "No está disponible. "}"'''
 
 
 class Biblioteca:
@@ -69,21 +69,17 @@ class Biblioteca:
         except Exception as e:
             print(f"Error al guardar el libro: {e}")
 
-    def agregar_libro(self, libro: Libro) -> None:
+    def agregar_libro(self, libro: Libro) -> str | None:
         for l in self.libros:
             if l.isbn == libro.isbn:
-                print(f"El libro con ISBN {libro.isbn} ya está en la biblioteca. ")
-                return
+                return f"El libro con ISBN {libro.isbn} ya está en la biblioteca. "
         else: 
             self.save_to_db(libro)
             self.guardar_libros_dic()
+            return
 
-    def mostrar_libros(self) -> str:
-        return "\n".join(str(l) for l in self.libros)
-        '''cad = ""
-        for l in self.libros:
-            cad += str(l) + "\n"
-        return cad'''
+    def mostrar_libros(self) -> list:
+        return self.libros
 
     def buscar_por_titulo (self, titulo:str) -> Libro | None:
         try:

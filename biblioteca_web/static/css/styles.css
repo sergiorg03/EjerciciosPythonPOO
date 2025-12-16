@@ -6,11 +6,18 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
 }
 
 header {
@@ -40,6 +47,22 @@ main {
 footer {
     text-align: center;
     color: white;
-    margin-top: 30px;
+    margin-top: auto;
     padding: 20px;
+    width: 100%;
+}
+
+table {
+    width: 75%;
+    height: 75%;
+    border-collapse: separate;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.listalibros {
+    text-align: center;
+    /*border: 1px solid black;*/
+    height: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.01);
 }
