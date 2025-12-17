@@ -1,6 +1,8 @@
 # Archivo con contraseñas
 .env
-empresa.db
+
+# Archivos personales
+*.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

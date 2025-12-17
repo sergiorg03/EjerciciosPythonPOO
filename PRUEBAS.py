@@ -6,3 +6,5 @@ print(patron.search(cadena)) # <re.Match object; span=(0, 6), match='a44453'>
 cadena = 'ba3455' # la coincidencia no está al principio!
 print(patron.search(cadena)) # <re.Match object; span=(1, 6), match='a3455'>
 print(patron.match(cadena)) # None
+
+print(isinstance())

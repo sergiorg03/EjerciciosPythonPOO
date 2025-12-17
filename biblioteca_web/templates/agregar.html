@@ -16,31 +16,35 @@
         <div style="margin-bottom: 20px;">
             <label for="titulo" style="display: block; margin-bottom: 5px; font-weight: 600;">Título:</label>
             <input type="text" id="titulo" name="titulo" required
-                style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;"
+                value="{{ titulo }}">
         </div>
 
         <div style="margin-bottom: 20px;">
             <label for="autor" style="display: block; margin-bottom: 5px; font-weight: 600;">Autor:</label>
             <input type="text" id="autor" name="autor" required
-                style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;"
+                value="{{ autor }}">
         </div>
 
         <div style="margin-bottom: 20px;">
             <label for="isbn" style="display: block; margin-bottom: 5px; font-weight: 600;">ISBN:</label>
             <input type="text" id="isbn" name="isbn" required
-                style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;">
+                style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;"
+                value="{{ isbn }}">
         </div>
 
         <div style="margin-bottom: 30px;">
             <label style="display: flex; align-items: center; font-weight: 600;">
-                <input type="checkbox" name="disponible" checked style="width: 20px; height: 20px; margin-right: 10px;">
+                <input type="checkbox" name="disponible" {% if disponible %} checked {% endif %}
+                    style="width: 20px; height: 20px; margin-right: 10px;">
                 Disponible
             </label>
         </div>
 
         <button type="submit" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                           color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; 
-                           cursor: pointer; transition: transform 0.2s;">
+                        color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; 
+                        cursor: pointer; transition: transform 0.2s;">
             Agregar Libro
         </button>
     </form>

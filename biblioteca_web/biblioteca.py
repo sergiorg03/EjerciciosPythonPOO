@@ -31,7 +31,7 @@ class Biblioteca:
     def create_db(self) -> None:
         try:
             cursor = self.conn.cursor()
-            cursor.execute("CREATE TABLE IF NOT EXISTS libros (isbn TEXT PRIMARY KEY, titulo TEXT, autor TEXT, disponible BOOLEAN)")
+            cursor.execute("CREATE TABLE IF NOT EXISTS libros (isbn TEXT PRIMARY KEY, titulo TEXT, autor TEXT, disponible BOOLEAN DEFAULT TRUE)")
             self.conn.commit()
         except Exception as e:
             print(f"Error al crear la base de datos: {e}")
@@ -52,51 +52,58 @@ class Biblioteca:
 
     def __init__(self, nombre: str):
         self.nombre = nombre
-        __NOMBRE_BD = 'biblioteca.db'
+        self.__NOMBRE_BD = './biblioteca.db'
         try:
-            self.conn = sqlite3.connect(__NOMBRE_BD)
+            self.conn = sqlite3.connect(self.__NOMBRE_BD, check_same_thread=False)
         except Exception as e:
             print(f"Error al conectar a la base de datos: {e}")
         self.create_db()
         self.libros = self.get_books_from_db() if self.get_books_from_db() else []
 
-    def save_to_db(self, libro: Libro) -> None:
-        
-        try:
-            cursor = self.conn.cursor()
-            cursor.execute("INSERT INTO libros (titulo, autor, isbn, disponible) VALUES (?, ?, ?, ?)", (libro.titulo, libro.autor, libro.isbn, libro.disponible))
-            self.conn.commit()
-        except Exception as e:
-            print(f"Error al guardar el libro: {e}")
-
     def agregar_libro(self, libro: Libro) -> str | None:
-        for l in self.libros:
-            if l.isbn == libro.isbn:
-                return f"El libro con ISBN {libro.isbn} ya está en la biblioteca. "
-        else: 
-            self.save_to_db(libro)
-            self.guardar_libros_dic()
-            return
+        __SENTENCIA = """
+            INSERT INTO libros (titulo, autor, isbn, disponible)
+            VALUES (?, ?, ?, ?)
+        """
+        __COMPROBACION_EXISTENCIA = '''
+            SELECT * 
+                FROM libros 
+                WHERE isbn = ?
+        '''
+        try:
+            c = self.conn.cursor()
+            existe = c.execute(__COMPROBACION_EXISTENCIA, (libro.isbn, )).fetchone()
+            if existe is None:
+                c.execute(__SENTENCIA, (libro.titulo, libro.autor, libro.isbn, libro.disponible))
+                self.conn.commit()
+                self.guardar_libros_dic()
+                return "Libro agregado correctamente. "
+            else: # El libro existe
+                return "El ISBN introducido ya existe. Introduzca un ISBN correcto. "
+        except Exception as e:
+            print(e)
+            return "Se produjo un error a hora de añadir el libro a la biblioteca. Por favor intentelo de nuevo más tarde. "
 
     def mostrar_libros(self) -> list:
-        return self.libros
+        try:
+            c = self.conn.cursor()
+            libros = c.execute("SELECT titulo, autor, isbn, disponible FROM libros").fetchall()
+            if libros:
+                return [Libro(titulo=l[0], autor=l[1], isbn=l[2], disponible=l[3]) for l in libros]
+        except Exception as e:
+            print(e)
+            return "No se pudieron recuperar datos. "
 
     def buscar_por_titulo (self, titulo:str) -> Libro | None:
         try:
             cursor = self.conn.cursor()
-            libro = cursor.execute("SELECT titulo, autor, isbn, disponible FROM libros WHERE UPPER(titulo) LIKE ?", (f"%{titulo.upper()}%",)).fetchone()
+            libro = cursor.execute("SELECT titulo, autor, isbn, disponible FROM libros WHERE UPPER(titulo) LIKE ?", (f"%{titulo.upper()}%",)).fetchall()
             if libro:
-                return Libro(titulo=libro[0], autor=libro[1], isbn=libro[2], disponible=libro[3])
+                return [Libro(titulo=l[0], autor=l[1], isbn=l[2], disponible=l[3]) for l in libro]
             else:
-                return None
+                return "No se encontraron resultados. "
         except Exception as e:
             print(f"Se produjo un error al buscar el libro: {e}")
-        ''' código para buscar libros en la lista
-        for i in self.libros:
-            if i.titulo.upper() == titulo.upper():
-                return i
-        else:
-            return None'''
 
     def prestar_libro_bd(self, isbn):
         try:
@@ -107,15 +114,62 @@ class Biblioteca:
             print(f"Se produjo un error al prestar el libro: {e}")
 
     def prestar_libro(self, isbn:str) -> bool:
-        for i in self.libros:
+        __SENTENCIA = '''
+            SELECT disponible
+                FROM libros 
+                WHERE isbn = ?
+        '''
+
+        try:
+            c = self.conn.cursor()
+            dispo = c.execute(__SENTENCIA, (isbn, )).fetchone()
+            if dispo is not None:
+                if dispo[0]:
+                    c.execute("UPDATE libros SET disponible = ? WHERE isbn = ?", (False, isbn, ))
+                    self.conn.commit()
+                    self.guardar_libros_dic()
+                    return "Libro prestado correctamente. " # No modificar mensaje
+                else:
+                    return "El libro indicado ya fue prestado anteriormente. "
+            else:
+                return "El libro con el ISBN indicado no existe. "
+        except Exception as e:
+            print(e)
+            return "Ocurrio un error y no se pudo prestar el libro indicado. Intentelo de nuevo más tarde."
+
+        '''for i in self.libros:
             if i.isbn == isbn:
                 i.prestar()
                 self.prestar_libro_bd(isbn)
                 self.guardar_libros_dic()
-                return "Libro prestado correctamente. "
+                return "Libro prestado correctamente. " # No modificar mensaje
         else:
-            print("El ISBN indicado no existe. ")
-            return False
+            return "El ISBN indicado no existe. "'''
+
+    def devolver_libro(self, isbn:str) -> str:
+        __SENTENCIA = f'''
+            SELECT disponible 
+                FROM libros
+                WHERE isbn = ?
+        '''
+        try:
+            c = self.conn.cursor()
+
+            dispo = c.execute(__SENTENCIA, (isbn,)).fetchone()
+            if dispo is not None:
+                if not dispo[0]:
+                    c.execute("UPDATE libros SET disponible = ? WHERE isbn = ?", (True, isbn, ))
+                    self.conn.commit()
+                    self.guardar_libros_dic()
+                    return "Libro devuelto correctamente. " # No modificar mensaje
+                    
+                else:
+                    return "El libro indicado se encuentra en la biblioteca. "
+            else:
+                return "El libro indicado no existe. "
+        except Exception as e:
+            print(e)
+            return "Ocurrio un error y no se pudo devolver el libro indicado. Intentelo de nuevo más tarde."
 
     def close_db(self):
         try:

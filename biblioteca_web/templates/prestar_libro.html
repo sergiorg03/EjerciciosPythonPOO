@@ -1,10 +1,27 @@
 {% extends "base_prestar_devolver.html" %}
 
-{% block title %}Inicio - Biblioteca Central{% endblock %}
+{% block title %}Prestar Libro - Biblioteca Central{% endblock %}
 
-{% block admin_content %}
-<div>
-    <p>HOLAAAAAAAA</p>
+{% block result %}
+{% if mensaje %}
+{% if mensaje == "Libro prestado correctamente. " %}
+<div style="margin-top: 20px; padding: 15px; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 6px;">
+    <p style="color: #155724; margin: 0; text-align: center; font-weight: bold;">
+        {{ mensaje }}
+    </p>
+    <p style="color: #155724; margin: 5px 0 0 0; text-align: center; font-size: 14px;">
+        ISBN: {{ isbn }}
+    </p>
 </div>
-
+{% else %}
+<div style="margin-top: 20px; padding: 15px; background-color: #edd4d4; border: 1px solid #e6c3c3; border-radius: 6px;">
+    <p style="color: #4d1313; margin: 0; text-align: center; font-weight: bold;">
+        {{ mensaje }}
+    </p>
+    <p style="color: #4d1313; margin: 5px 0 0 0; text-align: center; font-size: 14px;">
+        ISBN: {{ isbn }}
+    </p>
+</div>
+{% endif %}
+{% endif %}
 {% endblock %}

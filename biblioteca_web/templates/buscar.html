@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Buscar Libro - Biblioteca Central{% endblock %}
+
+{% block content %}
+
+<div
+    style="max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+    <h2 align="center" style="color: #667eea; margin-bottom: 30px;">Buscar Libro</h2>
+
+    <form method="GET" action="/buscar">
+        <div style="margin-bottom: 20px;">
+            <label for="titulo" style="display: block; margin-bottom: 5px; font-weight: 600;">Título:</label>
+            <input type="text" id="titulo" name="titulo" required
+                style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;"
+                value="{{ titulo if titulo else '' }}"
+                placeholder="Introduzca el nombre del libro. Ej: El señor de los anillos">
+        </div>
+
+        <button type="submit"
+            style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; transition: transform 0.2s;">
+            Buscar Libro
+        </button>
+    </form>
+
+    {% if mensaje %}
+    <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+        {% if libros and mensaje == "Libros encontrados" %}
+        <h3 style="color: #333; margin-bottom: 15px;">Resultados de la búsqueda:</h3>
+        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 5px solid #667eea;">
+            {% for libro in libros %}
+            <div style="border-bottom: 2px solid #000;">
+                <p><strong>Título:</strong> {{ libro.titulo }}</p>
+                <p><strong>Autor:</strong> {{ libro.autor }}</p>
+                <p><strong>ISBN:</strong> {{ libro.isbn }}</p>
+                <p><strong>Estado:</strong>
+                    {% if libro.disponible %}
+                    <span style="color: #28a745; font-weight: bold;">Disponible</span>
+                    {% else %}
+                    <span style="color: #dc3545; font-weight: bold;">Prestado</span>
+                    {% endif %}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div
+            style="background-color: #fff3cd; border: 1px solid #ffeeba; color: #dc3545; padding: 15px; border-radius: 8px; text-align: center;">
+            <p style="margin: 0; font-weight: bold;">{{ mensaje }}</p>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

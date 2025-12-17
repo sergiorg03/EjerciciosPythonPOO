@@ -29,7 +29,7 @@
     </a>
 </nav>-->
 <div>
-
+    {% block form_isbn %}
     <div style="display: flex; justify-content: center; align-items: center; padding: 40px;">
         <div style="background-color: white; padding: 30px; border-radius: 12px; 
                 box-shadow: 0 4px 15px rgba(0,0,0,0.15); width: 100%; max-width: 400px; text-align: center;">
@@ -39,27 +39,32 @@
                 Introduzca el
                 ISBN del libro</h2>
 
-            <form action="/tu-ruta-de-procesamiento" method="POST">
+            <form method="GET">
                 <label for="isbn"
                     style="display: block; text-align: left; margin-bottom: 8px; color: #555; font-weight: bold;">
                     Introduce el ISBN:
                 </label>
 
-                <input type="text" id="isbn" name="isbn" placeholder="Ej: 978-3-16-148410-0" required style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; 
-                       border-radius: 6px; box-sizing: border-box; font-size: 16px;">
+                <input type="text" id="isbn" name="isbn" placeholder="Ej: 123456789" required style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; 
+                        border-radius: 6px; box-sizing: border-box; font-size: 16px;" value="{{ isbn }}">
 
-                <button type="submit" style="width: 100%; padding: 12px; background-color: #007bff; color: white; 
-                       border: none; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold;">
+                <button type="submit" formaction="/prestar_libro" style="width: 100%; padding: 12px; background-color: #007bff; color: white; 
+                        border: none; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold;">
                     Solicitar prestamo
                 </button>
-                <buttontype="submit" style="width: 100%; padding: 12px; background-color: #007bff; color: white; 
-                       border: none; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold;">
+                <button type="submit" formaction="/devolver_libro"
+                    style="width: 100%; padding: 12px; background-color: #007bff; color: white; 
+                        border: none; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; margin-top: 10px;">
                     Solicitar devolución
-                    </buttontype=>
+                </button>
             </form>
+
+            {% block result %}
+            {% endblock %}
 
         </div>
     </div>
+    {% endblock %}
 
 </div>
 {% endblock %}
