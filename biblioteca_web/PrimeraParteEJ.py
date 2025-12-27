@@ -6,19 +6,20 @@ from biblioteca import Biblioteca, Libro
 biblio = Biblioteca("Biblioteca Central") # Creación de la biblioteca central
 
 # Inserción de libros
-biblio.agregar_libro(Libro("Libro 1", "Autor 1", "1234567789124"))
-biblio.agregar_libro(Libro("Libro 2", "Autor 2", "1234567789125"))
-biblio.agregar_libro(Libro("Libro 3", "Autor 3", "1234567789126"))
-biblio.agregar_libro(Libro("Libro 1", "Autor 1", "1234567789124")) # Error: ISBN ya existente. 
+print(biblio.agregar_libro(Libro("El señor de los anillos", "J.R.R. Tolkien", "123456789")))
+print(biblio.agregar_libro(Libro("Los juegos del hambre", "Suzanne Collins", "123456788")))
+print(biblio.agregar_libro(Libro("Cien años de soledad", "Gabriel Garcia Marquez", "123456787")))
+print(biblio.agregar_libro(Libro("El principito", "Antoine de Saint-Exupéry", "123456788"))) # Error: ISBN ya existente. 
 
-print(f"\nMostramos los libros: \n{biblio.mostrar_libros()}")
+print(f"\nMostramos los libros: \n{"\n".join([f"{l.titulo}, {l.autor}, {l.isbn}, {"Disponible en la biblioteca" if l.disponible else "No se encuentra disponible"}" for l in biblio.mostrar_libros()])}")
 
-print(f"\nPrestamos el libro con ISBN: 1234567789124 \n")
-biblio.prestar_libro('1234567789124')
+print(f"\nPrestamos el libro con ISBN: 123456789 \n")
+print(biblio.prestar_libro('123456789'))
 
+print(f"\nMostramos los libros: \n{"\n".join([f"{l.titulo}, {l.autor}, {l.isbn}, {"Disponible en la biblioteca" if l.disponible else "No se encuentra disponible"}" for l in biblio.mostrar_libros()])}")
 
-print(f"\nMostramos los libros: \n{biblio.mostrar_libros()}")
+print("\n")
 
-print(biblio.buscar_por_titulo("1"))
+print(f"\nBuscamos libros que coincidan con el titulo: \n{"\n".join([f"{l.titulo}, {l.autor}, {l.isbn}, {"Disponible en la biblioteca" if l.disponible else "No se encuentra disponible"}" for l in biblio.buscar_por_titulo("l")])}")
 
 biblio.close_db()
