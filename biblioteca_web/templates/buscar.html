@@ -8,20 +8,33 @@
     style="max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
     <h2 align="center" style="color: #667eea; margin-bottom: 30px;">Buscar Libro</h2>
 
-    <form method="GET" action="/buscar">
-        <div style="margin-bottom: 20px;">
+    <form method="GET" action="/buscar" id="searchForm">
+        <div class="container_search">
+            <div class="search-container">
+                <input class="input" type="text" id="titulo" name="titulo" required autofocus
+                    placeholder="Introduzca el título del libro. Ej: El señor de los anillos">
+                <svg viewBox="0 0 24 24" class="search__icon" onclick="document.getElementById('searchForm').submit();">
+                    <g>
+                        <path
+                            d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
+                        </path>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <!--<div style="margin-bottom: 20px;">
             <label for="titulo" style="display: block; margin-bottom: 5px; font-weight: 600;">Título:</label>
             <input type="text" id="titulo" name="titulo" required autofocus
                 style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px;"
                 value="{{ titulo if titulo else '' }}"
                 placeholder="Introduzca el nombre del libro. Ej: El señor de los anillos">
-        </div>
+        </div>-->
 
-        <button type="submit"
+        <!--<button type="submit"
             style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; transition: transform 0.2s;">
+                color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; transition: transform 0.2s; margin-top: 20px;">
             Buscar Libro
-        </button>
+        </button>-->
     </form>
 
     {% if mensaje %}
