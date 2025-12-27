@@ -34,19 +34,28 @@
                 value="{{ isbn }}">
         </div>
 
-        <div style="margin-bottom: 30px;">
+        <div class="container_checkbox">
+            <input type="checkbox" name="checkbox" id="checkbox" {% if disponible %} checked {% endif %}>
+            <label for="checkbox" class="label_checkbox" />
+        </div>
+        <p>Disponible</p>
+        <!--<div style="margin-bottom: 30px;">
             <label style="display: flex; align-items: center; font-weight: 600;">
                 <input type="checkbox" name="disponible" {% if disponible %} checked {% endif %}
                     style="width: 20px; height: 20px; margin-right: 10px;">
                 Disponible
             </label>
-        </div>
+        </div>-->
 
-        <button type="submit" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                        color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; 
-                        cursor: pointer; transition: transform 0.2s;">
-            Agregar Libro
-        </button>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <button type="submit" class="cta">
+                <span>Agregar Libro</span>
+                <svg width="13px" height="10px" viewBox="0 0 13 10">
+                    <path d="M1,5 L11,5"></path>
+                    <polyline points="8 1 12 5 8 9"></polyline>
+                </svg>
+            </button>
+        </div>
     </form>
 </div>
 {% endblock %}
