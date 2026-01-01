@@ -162,7 +162,8 @@ table {
     left: 0;
     display: block;
     border-radius: 28px;
-    background: rgba(255, 171, 157, 0.5);
+    /*background: rgba(255, 171, 157, 0.5);*/
+    background: rgb(116, 134, 224);
     width: 56px;
     height: 56px;
     transition: all 0.3s ease;
@@ -193,7 +194,8 @@ table {
 
 .cta:hover:before {
     width: 100%;
-    background: #ffab9d;
+    /*background: #ffab9d;*/
+    background: #6a71d8;
 }
 
 .cta:hover svg {
@@ -209,10 +211,10 @@ table {
 */
 
 .b_sol_pres {
-    --glow-color: rgb(217, 176, 255);
-    --glow-spread-color: rgba(191, 123, 255, 0.3);
+    --glow-color: rgb(202, 170, 231);
+    --glow-spread-color: rgba(198, 151, 243, 0.3);
     --enhanced-glow-color: rgb(231, 206, 255);
-    --btn-color: rgb(100, 61, 136);
+    --btn-color: rgb(104, 71, 134);
     border: .25em solid var(--glow-color);
     padding: 1em 3em;
     color: var(--glow-color);
