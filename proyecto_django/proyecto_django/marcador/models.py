@@ -12,15 +12,15 @@ class Project (models.Model):
     collaborators = models.ManyToManyField(User, related_name='collaborated_projects', blank=True)  # Many-to-Many relationship with User model
 
     def __str__(self):
-        return f"Proyecto: {self.title}, \ndescripcion: {self.description}, \nfecha de creacion: {self.created_at}, \nfecha de vencimiento: {self.deadline}, \ndueño: {self.owner}, \ncollaboradores: {self.collaborators}"
+        return f"Proyecto: {self.title}"
     
 class Task(models.Model):
     project = models.ForeignKey(Project, related_name='tasks', on_delete=models.CASCADE)  # One-to-Many relationship with Project model
     title = models.CharField(max_length=255)
     description = models.TextField()
-    status = models.CharField(max_length=10, choices=[('TODO', 'To Do'), ('IN_PROGRESS', 'In Progress'), ('DONE', 'Done')])  # Choices: TODO, IN_PROGRESS, DONE
-    priority = models.CharField(max_length=10, choices=[('LOW', 'Low'), ('MEDIUM', 'Medium'), ('HIGH', 'High')])  # Choices: LOW, MEDIUM, HIGH
+    status = models.CharField(max_length=100, choices=[('TODO', 'To Do'), ('IN_PROGRESS', 'In Progress'), ('DONE', 'Done')])  # Choices: TODO, IN_PROGRESS, DONE
+    priority = models.CharField(max_length=100, choices=[('LOW', 'Low'), ('MEDIUM', 'Medium'), ('HIGH', 'High')])  # Choices: LOW, MEDIUM, HIGH
     assigned_to = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)  # One-to-Many relationship with User model but can be null if the task is not assigned to anyone yet
 
     def __str__(self):
-        return f"Tarea: {self.title}, \nDescripcion: {self.description}, \nEstado: {self.status}, \nPrioridad: {self.priority}, \nAsignado a: {self.assigned_to}"
+        return f"Tarea: {self.title}"
