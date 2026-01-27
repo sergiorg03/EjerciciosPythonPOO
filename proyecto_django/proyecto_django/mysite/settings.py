@@ -16,6 +16,10 @@ load_dotenv()
 
 from pathlib import Path
 
+# URLs de la app 
+from django.contrib import admin
+from django.urls import path, include
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
