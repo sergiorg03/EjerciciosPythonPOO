@@ -12,7 +12,7 @@ class Project (models.Model):
     collaborators = models.ManyToManyField(User, related_name='collaborated_projects', blank=True)  # Many-to-Many relationship with User model
 
     def __str__(self):
-        return f"Proyecto: {self.title}"
+        return f"Titulo: {self.title}"
     
 class Task(models.Model):
     project = models.ForeignKey(Project, related_name='tasks', on_delete=models.CASCADE)  # One-to-Many relationship with Project model
@@ -23,4 +23,4 @@ class Task(models.Model):
     assigned_to = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)  # One-to-Many relationship with User model but can be null if the task is not assigned to anyone yet
 
     def __str__(self):
-        return f"Tarea: {self.title}"
+        return f"Tarea: {self.title}, ({self.description})"

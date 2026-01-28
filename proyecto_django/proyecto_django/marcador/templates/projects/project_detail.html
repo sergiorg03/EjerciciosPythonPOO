@@ -9,6 +9,22 @@
 
 <body>
     <h1>{{ project.title }}</h1>
+    <p>Bienvenido, {{ user.username }} |
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
+    </p>
+
+    {% if project.owner == user %}
+    <form action="{% url 'delete_project' project.id %}" method="post" style="margin-bottom: 20px;"
+        onsubmit="return confirm('¿Estás seguro de que quieres eliminar este proyecto?');">
+        {% csrf_token %}
+        <button type="submit"
+            style="background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;">Eliminar
+            Proyecto</button>
+    </form>
+    {% endif %}
 
     <p>{{ project.description }}</p>
     <p>Deadline: {{ project.deadline }}</p>
@@ -25,7 +41,7 @@
         {% endfor %}
     </ul>
 
-    <a href="{% url 'project_list' %}">Volver</a>
+    <a href="{% url 'dashboard' %}">Volver. </a>
 </body>
 
 </html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <h1>Dashboard</h1>
+    <p>Bienvenido, {{ user.username }} |
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
+    </p>
+
+    <hr>
+
+    <h2>Mis proyectos</h2>
+
+    {% if mis_proyectos %}
+    <ul>
+        {% for p in mis_proyectos %}
+        <li>
+            <a href="{% url 'project_detail' p.id %}">
+                {{ p.title }}
+            </a>
+            <form action="{% url 'delete_project' p.id %}" method="post" style="display:inline;"
+                onsubmit="return confirm('¿Estás seguro de que quieres eliminar este proyecto?');">
+                {% csrf_token %}
+                <button type="submit"
+                    style="color: red; border: none; background: none; cursor: pointer; padding: 0; font-size: 0.8em; margin-left: 10px;">[Eliminar]</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No tienes proyectos propios todavía.</p>
+    {% endif %}
+
+    <hr>
+
+    <h2>Colaboraciones</h2>
+
+    {% if proyectos_colaborativos %}
+    <ul>
+        {% for c in proyectos_colaborativos %}
+        <li>
+            <a href="{% url 'project_detail' c.id %}">
+                {{ c.title }}
+            </a>
+            (Owner: {{ c.owner.username }})
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No colaboras en ningún proyecto.</p>
+    {% endif %}
+</body>
+
+</html>

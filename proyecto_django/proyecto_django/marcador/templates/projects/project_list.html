@@ -9,6 +9,12 @@
 
 <body>
     <h1>Proyectos</h1>
+    <p>Bienvenido, {{ user.username }} |
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
+    </p>
 
     <ul>
         {% for project in projects %}
@@ -21,6 +27,8 @@
         <li>No hay proyectos</li>
         {% endfor %}
     </ul>
+    <br>
+    <a href="{% url 'dashboard' %}">Volver.</a>
 </body>
 
 </html>
