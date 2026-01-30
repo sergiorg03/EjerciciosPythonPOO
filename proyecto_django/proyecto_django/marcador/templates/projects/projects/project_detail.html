@@ -1,20 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'projects/base_proyectos.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles del proyecto. </title>
-</head>
-
-<body>
+{% block content %}
     <h1>{{ project.title }}</h1>
-    <p>Bienvenido, {{ user.username }} |
-    <form action="{% url 'logout' %}" method="post" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit">Cerrar sesión</button>
-    </form>
-    </p>
 
     {% if project.owner == user %}
     <form action="{% url 'delete_project' project.id %}" method="post" style="margin-bottom: 20px;"
@@ -42,6 +29,4 @@
     </ul>
 
     <a href="{% url 'dashboard' %}">Volver. </a>
-</body>
-
-</html>
+{% endblock %}

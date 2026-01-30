@@ -1,0 +1,19 @@
+{% extends 'projects/base_proyectos.html' %}
+
+{% block content %}
+    <h1>Proyectos</h1>
+
+    <ul>
+        {% for project in projects %}
+        <li>
+            <a href="{% url 'project_detail' project.id %}">
+                {{ project.title }}
+            </a>
+        </li>
+        {% empty %}
+        <li>No hay proyectos</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="{% url 'dashboard' %}">Volver.</a>
+{% endblock %}

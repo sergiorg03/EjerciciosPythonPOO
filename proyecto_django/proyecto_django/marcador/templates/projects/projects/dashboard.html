@@ -1,23 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends 'projects/base_proyectos.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
-
-<body>
-    <h1>Dashboard</h1>
-    <p>Bienvenido, {{ user.username }} |
-    <form action="{% url 'logout' %}" method="post" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit">Cerrar sesión</button>
-    </form>
-    </p>
-
-    <hr>
-
+{% block content %}
     <h2>Mis proyectos</h2>
 
     {% if mis_proyectos %}
@@ -58,6 +41,4 @@
     {% else %}
     <p>No colaboras en ningún proyecto.</p>
     {% endif %}
-</body>
-
-</html>
+{% endblock %}
