@@ -18,11 +18,15 @@ def dashboard(request):
 @login_required
 def project_list(request):
     projects = Project.objects.filter(owner=request.user)
+    
+    total_tareas = []
     tareas_completadas = []
     for p in projects:
-        tareas_completadas.append(Task.objects.filter(project=p, status='DONE').count())
+        t = Task.objects.filter(project=p)
+        total_tareas.append(t.count())
+        tareas_completadas.append(t.filter(status='DONE').count())
 
-    proyectos_tareas = zip(projects, tareas_completadas)
+    proyectos_tareas = zip(projects, total_tareas, tareas_completadas)
     return render(request, 'projects/projects/project_list.html', {
         'projects': proyectos_tareas
     })

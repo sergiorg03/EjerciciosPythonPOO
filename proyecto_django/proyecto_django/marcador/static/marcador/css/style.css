@@ -13,10 +13,13 @@
     box-sizing: border-box;
 }
 
-html,
+html {
+    height: 100%;
+}
+
 body {
-    height: 100vh;
-    width: 100vw;
+    min-height: 100vh;
+    width: 100%;
 }
 
 body {
@@ -43,6 +46,8 @@ main {
     margin-top: 2rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 nav,
@@ -293,4 +298,75 @@ nav {
 
 .bottom-text a:hover {
     color: #3f95f2;
+}
+
+/* --- Responsive Design --- */
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    main {
+        padding: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    nav {
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .nav-item {
+        width: 100%;
+        min-width: 0;
+        justify-content: center;
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom: 1px solid rgb(60, 60, 60);
+    }
+
+    .nav-item:last-of-type {
+        border-bottom: none;
+    }
+
+    .nav-item a {
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    .delete-project-button {
+        width: 100%;
+        padding: 0.6em 1em;
+        font-size: 16px;
+    }
+
+    .login-container {
+        padding: 20px;
+    }
+
+    .heading {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0.5rem;
+    }
+
+    main {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .nav-item {
+        font-size: 0.85rem;
+    }
+
+    .go-back-button {
+        width: 80px;
+        height: 2.5em;
+    }
 }

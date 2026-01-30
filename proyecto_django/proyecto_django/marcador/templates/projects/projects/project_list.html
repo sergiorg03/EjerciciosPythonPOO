@@ -6,14 +6,15 @@
     <p>Número de proyectos: {{ projects.count }}</p>
 
     <ul>
-        {% for project, tasks in projects %}
+        {% for project, tasks, tareas_completadas in projects %}
         <li>
             <a href="{% url 'project_detail' project.id %}" class="url-project">
                 {{ project.title }}
             </a>
-
-            <p>Número de tareas completadas: {{ tasks }}</p>
-
+            
+            <p>Número de tareas: {{ tasks }}</p>
+            <p>Número de tareas completadas: {{ tareas_completadas }}</p>
+            
         </li>
         {% empty %}
         <li>No hay proyectos</li>
