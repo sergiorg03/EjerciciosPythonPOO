@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Project
+from .models import Project, Task
 
 # Create your views here.
 @login_required
@@ -17,9 +17,14 @@ def dashboard(request):
 
 @login_required
 def project_list(request):
-    projects = Project.objects.all()
+    projects = Project.objects.filter(owner=request.user)
+    tareas_completadas = []
+    for p in projects:
+        tareas_completadas.append(Task.objects.filter(project=p, status='DONE').count())
+
+    proyectos_tareas = zip(projects, tareas_completadas)
     return render(request, 'projects/projects/project_list.html', {
-        'projects': projects
+        'projects': proyectos_tareas
     })
 
 @login_required

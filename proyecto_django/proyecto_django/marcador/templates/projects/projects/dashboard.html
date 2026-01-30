@@ -7,15 +7,15 @@
     <ul>
         {% for p in mis_proyectos %}
         <li>
-            <a href="{% url 'project_detail' p.id %}">
+            <a href="{% url 'project_detail' p.id %}" class="url-project">
                 {{ p.title }}
             </a>
-            <form action="{% url 'delete_project' p.id %}" method="post" style="display:inline;"
+            <!--<form action="{% url 'delete_project' p.id %}" method="post" style="display:inline;"
                 onsubmit="return confirm('¿Estás seguro de que quieres eliminar este proyecto?');">
                 {% csrf_token %}
                 <button type="submit"
-                    style="color: red; border: none; background: none; cursor: pointer; padding: 0; font-size: 0.8em; margin-left: 10px;">[Eliminar]</button>
-            </form>
+                    style="color: red; border: none; background: none; cursor: pointer; padding: 0; font-size: 0.8em; margin-left: 10px;">[Eliminar]</button> 
+            </form>-->
         </li>
         {% endfor %}
     </ul>
@@ -31,10 +31,10 @@
     <ul>
         {% for c in proyectos_colaborativos %}
         <li>
-            <a href="{% url 'project_detail' c.id %}">
+            <a href="{% url 'project_detail' c.id %}" class="url-project">
                 {{ c.title }}
             </a>
-            (Owner: {{ c.owner.username }})
+            <span class="owner-project">(Owner: {{ c.owner.username }})</span>
         </li>
         {% endfor %}
     </ul>

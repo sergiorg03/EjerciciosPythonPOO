@@ -1,11 +1,43 @@
 {% extends 'projects/base.html' %}
 
 {% block content %}
-    <h2>Iniciar sesión</h2>
 
-    <form method="post">
+<div class="login-container">
+    <p class="heading">Login</p>
+    <p class="paragraph">Login to your account</p>
+    
+    <form class="login-form" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Entrar</button>
+        
+        {% if form.errors %}
+            <p style="color: #ff4d4d; font-size: 0.8em; margin-bottom: 10px;">
+                Usuario o contraseña incorrectos.
+            </p>
+        {% endif %}
+
+        <div class="input-group">
+            <input
+                required=""
+                placeholder="Username"
+                name="username"
+                id="username"
+                type="text"
+            />
+        </div>
+        <div class="input-group">
+            <input
+                required=""
+                placeholder="Password"
+                name="password"
+                id="password"
+                type="password"
+            />
+        </div>
+        <button type="submit" class="button-login">Login</button>
     </form>
+
+    <div class="bottom-text">
+        <p>¿No tienes cuenta? Contacta con el administrador.</p>
+    </div>
+</div>
 {% endblock %}

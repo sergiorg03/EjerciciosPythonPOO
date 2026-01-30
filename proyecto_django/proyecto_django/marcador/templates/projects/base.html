@@ -1,18 +1,32 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyectos TaskMaster</title>
+    <link rel="stylesheet" href="{% static 'marcador/css/style.css' %}">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="{% static 'marcador/js/script.js' %}" defer></script>
 </head>
 <body>
-    <h1>Proyecto TaskMaster</h1>
+    <header>
+        {% block header %}
+        <h1>Proyecto TaskMaster</h1>
+        {% endblock %}
+    </header>
+    
+    {% block nav %}
+    {% endblock %}
+
     <main>
         {% block content %}
         {% endblock %}
     </main>
+
     <footer>
-        <p>TaskMaster &copy; 2026</p>
+        {% block footer %}
+        {% endblock %}
     </footer>
 </body>
 </html>
