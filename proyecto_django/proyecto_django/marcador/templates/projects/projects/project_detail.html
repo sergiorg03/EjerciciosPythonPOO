@@ -4,14 +4,22 @@
     <h1>{{ project.title }}</h1>
 
     {% if project.owner == user %}
-    <form action="{% url 'delete_project' project.id %}" method="post" style="margin-bottom: 20px;"
-        onsubmit="return confirm('¿Estás seguro de que quieres eliminar este proyecto?');">
-        {% csrf_token %}
-        <button type="submit" class="delete-project-button">Eliminar proyecto</button>
-        <!-- <button type="submit"
-            style="background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;">Eliminar
-            Proyecto</button> -->
-    </form>
+    <div class="owner-actions" style="display: flex; gap: 10px; margin-bottom: 20px;">
+         <form action="{% url 'edit_project' project.id %}" method="get">
+            <button type="submit" class="delete-project-button">
+                Editar proyecto
+            </button>
+        </form>
+        
+        <form action="{% url 'delete_project' project.id %}" method="post"
+              onsubmit="return confirm('¿Estás seguro de que quieres eliminar este proyecto?');">
+            {% csrf_token %}
+            <button type="submit" class="delete-project-button">
+                Eliminar proyecto
+            </button>
+        </form>
+    </div>
+
     {% endif %}
 
     <p>{{ project.description }}</p>

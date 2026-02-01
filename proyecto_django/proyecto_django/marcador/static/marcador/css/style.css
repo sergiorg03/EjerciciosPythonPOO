@@ -137,8 +137,8 @@ nav {
     max-width: 16px;
 }
 
-/* Botón ELIMINAR PROYECTO */
-
+/* Botón ELIMINAR / EDITAR PROYECTO */
+/*.ed-project-button,*/
 .delete-project-button {
     color: #090909;
     padding: 0.7em 1.7em;
@@ -151,6 +151,7 @@ nav {
     box-shadow: 6px 6px 12px #c5c5c5ce, -6px -6px 12px #ffffff81;
 }
 
+/*.ed-project-button:active,*/
 .delete-project-button:active {
     color: #666;
     box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
@@ -300,7 +301,7 @@ nav {
     color: #3f95f2;
 }
 
-/* --- Responsive Design --- */
+/* --- Responsive --- */
 
 @media (max-width: 768px) {
     body {

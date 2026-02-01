@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Project, Task
+from .forms import ProjectForm
 
 # Create your views here.
 @login_required
@@ -47,4 +48,26 @@ def delete_project(request, project_id):
         project.delete()
     
     return redirect('dashboard')
+
+@login_required
+def edit_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    
+    # Verificar si el usuario es el dueño
+    if project.owner != request.user:
+        return redirect('project_detail', project_id=project.id)
+    
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+            return redirect('project_detail', project_id=project.id)
+    else:
+        form = ProjectForm(instance=project)
+    
+    return render(request, 'projects/projects/project_form.html', {
+        'form': form,
+        'project': project,
+        'title': 'Editar Proyecto'
+    })
 
