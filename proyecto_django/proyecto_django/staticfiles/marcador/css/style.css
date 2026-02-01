@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary: hsl(260, 100%, 80%);
+    --bg-gradient: radial-gradient(circle at top left, #1a1a2e 0%, #0f0f0f 100%);
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #e0e0e0;
+}
+
+/* --- Estilos para la barra de navegación --- */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    min-height: 100vh;
+    width: 100vw;
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+}
+
+main {
+    width: 100%;
+    max-width: 800px;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+nav,
+.nav-item {
+    display: flex;
+}
+
+nav {
+    border-radius: 6px;
+    background-image: linear-gradient(rgb(48, 48, 48) 13%,
+            rgb(30, 30, 30) 40%,
+            #0c0d11 86%);
+    color: rgba(255, 255, 255, 0.6);
+    text-shadow: 0 -2px 0 black;
+    cursor: pointer;
+    box-shadow: 1px 2px 4px rgb(20, 20, 20), 0 4px 12px rgb(10, 10, 10);
+}
+
+.nav-item {
+    flex-direction: row-reverse;
+    font-size: 0.8999rem;
+    line-height: 1rem;
+    align-items: center;
+    min-width: 120px;
+    justify-content: space-between;
+    transition: all 80ms ease;
+}
+
+.nav-item.active {
+    color: var(--primary);
+    text-shadow: 0 0 3px hsla(260, 100%, 70%, 0.7);
+}
+
+.nav-item:not(.active):hover {
+    color: rgba(255, 255, 255, 0.87);
+}
+
+.nav-item:hover>.icon .subicon {
+    height: 32px;
+    width: 32px;
+    border-radius: 32px;
+    top: -16px;
+    right: -16px;
+    border-color: white;
+}
+
+.nav-item:not(:first-of-type) {
+    border-left: 1px solid rgb(60, 60, 60);
+}
+
+.nav-item:not(:last-of-type) {
+    border-right: 0.1rem solid black;
+}
+
+.nav-item a {
+    color: inherit;
+    text-decoration: none;
+    padding: 1ch;
+}
+
+.nav-item .icon {
+    padding: 1ch;
+    position: relative;
+}
+
+.nav-item .icon .subicon {
+    text-shadow: none;
+    transition: all 40ms ease;
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    background: red;
+    color: white;
+    box-shadow: 0 0 4px rgba(41, 41, 41, 0.405);
+    width: 18px;
+    height: 18px;
+    border-radius: 14px;
+    font-size: 0.7em;
+    font-weight: 700;
+    display: inline-grid;
+    place-items: center;
+    border: 2px solid lightcoral;
+    /* Equivale aproximadamente al mix(white, red) */
+}
+
+.nav-item .icon>svg {
+    max-width: 16px;
+}
+
+/* Botón ELIMINAR PROYECTO */
+
+.delete-project-button {
+    color: #090909;
+    padding: 0.7em 1.7em;
+    font-size: 18px;
+    border-radius: 0.5em;
+    background: #e8e8e8;
+    cursor: pointer;
+    border: 1px solid #e8e8e8;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 12px #c5c5c5ce, -6px -6px 12px #ffffff81;
+}
+
+.delete-project-button:active {
+    color: #666;
+    box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
+/* URL's de los proyectos existentes */
+
+.url-project {
+    color: white
+        /*var(--primary);*/
+}
+
+
+/* Botón VOLVER */
+
+.go-back-button {
+    display: flex;
+    height: 3em;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    background-color: #eeeeee4b;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    transition: all 0.2s linear;
+    cursor: pointer;
+    border: none;
+    background: #fff;
+}
+
+.go-back-button>svg {
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 20px;
+    transition: all 0.4s ease-in;
+}
+
+.go-back-button:hover>svg {
+    font-size: 1.2em;
+    transform: translateX(-5px);
+}
+
+.go-back-button:hover {
+    box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
+    transform: translateY(-2px);
+}
+
+/* Dueño de los proyectos colaborativos */
+
+.owner-project {
+    color: #90f0c8;
+    font: bold;
+}
+
+/* Formulario LOGIN */
+.login-container {
+    background-color: #2f2f2f;
+    border-radius: 8px;
+    box-shadow: rgb(31 31 31 / 17%) 0px -23px 25px 0px inset,
+        rgb(108 108 108 / 23%) 0px -36px 30px 0px inset,
+        rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+        rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+        rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.heading {
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 40px;
+    margin-bottom: 5px;
+}
+
+.paragraph {
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    background: none;
+    border: 1px solid #353535;
+    padding: 15px 23px;
+    font-size: 16px;
+    border-radius: 8px;
+    color: #979797;
+    width: 100%;
+    box-shadow: rgb(136 136 136 / 17%) 0px -23px 25px 0px inset,
+        rgb(81 81 81 / 23%) 0px -36px 30px 0px inset,
+        rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+        rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+        rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.input-group input:focus {
+    border-color: #0173ed;
+    outline: none;
+}
+
+.button-login {
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #0173ed;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-login:hover {
+    background-color: #0173ed;
+}
+
+.bottom-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.bottom-text a {
+    color: #0173ed;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.bottom-text a:hover {
+    color: #3f95f2;
+}
+
+/* --- Responsive Design --- */
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    main {
+        padding: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    nav {
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .nav-item {
+        width: 100%;
+        min-width: 0;
+        justify-content: center;
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom: 1px solid rgb(60, 60, 60);
+    }
+
+    .nav-item:last-of-type {
+        border-bottom: none;
+    }
+
+    .nav-item a {
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    .delete-project-button {
+        width: 100%;
+        padding: 0.6em 1em;
+        font-size: 16px;
+    }
+
+    .login-container {
+        padding: 20px;
+    }
+
+    .heading {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0.5rem;
+    }
+
+    main {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .nav-item {
+        font-size: 0.85rem;
+    }
+
+    .go-back-button {
+        width: 80px;
+        height: 2.5em;
+    }
+}
