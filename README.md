@@ -17,7 +17,10 @@ Contiene scripts individuales y notebooks con la resolución de los boletines de
 ### 2. 🌐 Aplicaciones Web
 Proyectos prácticos integrando POO con frameworks web:
 - **`biblioteca_web/`**: Sistema de gestión de biblioteca desarrollado con **Flask**. Permite agregar, buscar, prestar y devolver libros.
-- **`proyecto_django/` / `Prueba_Django/`**: Ejercicios y pruebas utilizando el framework **Django**.
+- **`proyecto_django/`**: Aplicación profesional **"Marcador"** para la gestión de proyectos y tareas.
+  - **Características:** Gestión de estados (To Do, In Progress, Done), prioridades, sistema de colaboradores, y visualización de progreso con **Chart.js**.
+  - **Diseño:** Interfaz moderna con estética **Neumórfica**.
+- **`Prueba_Django/`**: Ejercicios iniciales y pruebas de concepto con el framework Django.
 
 ### 3. 📄 Documentación (`/*.pdf`)
 Se incluyen los boletines originales con los enunciados de los ejercicios:
@@ -32,6 +35,7 @@ Se incluyen los boletines originales con los enunciados de los ejercicios:
 
 - **Lenguaje:** Python 3.x
 - **Frameworks Web:** Flask, Django
+- **Frontend:** HTML5, CSS3 (Neumorphism), JavaScript (Chart.js)
 - **Bases de Datos:** MySQL / SQLite
 - **Herramientas:** Jupyter Notebook, pip, virtualenv
 
@@ -42,18 +46,19 @@ Se incluyen los boletines originales con los enunciados de los ejercicios:
 ### Requisitos previos
 Asegúrate de tener Python instalado y, preferiblemente, un entorno virtual activado.
 
-### Instalación de dependencias
-Para los proyectos web, navega a la carpeta correspondiente e instala los requerimientos:
-
+### Aplicación Django (Marcador)
 ```bash
-# Ejemplo para biblioteca_web
+cd proyecto_django/proyecto_django
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+La aplicación estará disponible en `http://127.0.0.1:8000`.
+
+### Aplicación Flask (Biblioteca)
+```bash
 cd biblioteca_web
 pip install -r requirements.txt
-```
-
-### Ejecutar la aplicación Flask (Biblioteca)
-```bash
-cd biblioteca_web
 python app.py
 ```
 La aplicación estará disponible en `http://127.0.0.1:5000`.
@@ -61,4 +66,4 @@ La aplicación estará disponible en `http://127.0.0.1:5000`.
 ---
 
 ## ✒️ Autor
-* **Sergio** - *Trabajos de clase*
+* **Sergio** - *Trabajos de clase (Full Stack Developer in training)*
