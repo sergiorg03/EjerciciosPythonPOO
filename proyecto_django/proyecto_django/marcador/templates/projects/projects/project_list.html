@@ -8,7 +8,7 @@
     <ul>
         {% for project, tasks, tareas_completadas in projects %}
         <li>
-            <a href="{% url 'project_detail' project.id %}" class="url-project">
+            <a href="{% url 'detail_view' project.id %}" class="url-project">
                 {{ project.title }}
             </a>
             

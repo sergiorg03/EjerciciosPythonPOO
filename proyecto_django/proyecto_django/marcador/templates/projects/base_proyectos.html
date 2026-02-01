@@ -15,7 +15,7 @@
         </span>
         <a href="{% url 'dashboard' %}">Inicio</a>
     </span>
-    <span class="nav-item {% if request.resolver_match.url_name == 'project_list' or request.resolver_match.url_name == 'project_detail' %}active{% endif %}">
+    <span class="nav-item {% if request.resolver_match.url_name == 'project_list' or request.resolver_match.url_name == 'detail_view' %}active{% endif %}">
         <span class="icon">
             <i data-feather="list"></i>
         </span>

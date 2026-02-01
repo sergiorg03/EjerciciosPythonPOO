@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Project, Task
 from .forms import ProjectForm, TaskStatusForm
+import numpy as np
 
 # Create your views here.
 @login_required
@@ -33,10 +34,18 @@ def project_list(request):
     })
 
 @login_required
-def project_detail(request, project_id):
+def detail_view(request, project_id):
     project = get_object_or_404(Project, id=project_id)
-    return render(request, 'projects/projects/project_detail.html', {
-        'project': project
+    tareas_completadas = project.tasks.filter(status='DONE').count()
+    tareas_pendientes = project.tasks.exclude(status='DONE').count()
+
+    porcentaje_completado = np.round(((tareas_completadas / (tareas_completadas + tareas_pendientes)) * 100), 4)
+    
+    return render(request, 'projects/projects/detailView.html', {
+        'project': project,
+        'completadas': tareas_completadas,
+        'pendientes': tareas_pendientes,
+        'porcentaje_completado': porcentaje_completado,
     })
 
 @login_required
@@ -55,13 +64,13 @@ def edit_project(request, project_id):
     
     # Verificar si el usuario es el dueño
     if project.owner != request.user:
-        return redirect('project_detail', project_id=project.id)
+        return redirect('detail_view', project_id=project.id)
     
     if request.method == 'POST':
         form = ProjectForm(request.POST, instance=project, user=request.user)
         if form.is_valid():
             form.save()
-            return redirect('project_detail', project_id=project.id)
+            return redirect('detail_view', project_id=project.id)
     else:
         form = ProjectForm(instance=project, user=request.user)
     
@@ -78,13 +87,13 @@ def edit_task_status(request, task_id):
     
     # Verificar si el usuario es colaborador
     if request.user not in project.collaborators.all():
-        return redirect('project_detail', project_id=project.id)
+        return redirect('detail_view', project_id=project.id)
     
     if request.method == 'POST':
         form = TaskStatusForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
-            return redirect('project_detail', project_id=project.id)
+            return redirect('detail_view', project_id=project.id)
     else:
         form = TaskStatusForm(instance=task)
     

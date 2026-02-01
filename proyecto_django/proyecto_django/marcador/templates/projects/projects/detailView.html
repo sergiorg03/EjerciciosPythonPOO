@@ -40,6 +40,49 @@
         {% endfor %}
     </ul>
 
+    <h1>Gráfico de tareas completadas</h1>
+    {% if project.tasks.exists %}
+    <div style="max-width: 200px; margin: 20px auto; text-align: center;">
+        <canvas id="tasksChart"></canvas>
+        <p style="margin-top: 15px; font-weight: 600; ">Progreso: {{ porcentaje_completado }}%</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('tasksChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Completadas', 'Pendientes '],
+                    datasets: [{
+                        data: [{{ completadas }}, {{ pendientes }}],
+                        backgroundColor: ['#90f0c8', '#ff4d4d'],
+                        borderColor: 'transparent',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: 'white',
+                                boxWidth: 20,
+                                padding: 20,
+                                font: {
+                                    size: 12,
+                                    family: "'Courier New', Courier, monospace"
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    {% endif %}
+
     <!-- <a href="{% url 'dashboard' %}">Volver. </a> -->
     <button class="go-back-button" onclick="window.history.back()">
       <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>

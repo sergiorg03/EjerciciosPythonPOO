@@ -7,7 +7,7 @@
     <ul>
         {% for p in mis_proyectos %}
         <li>
-            <a href="{% url 'project_detail' p.id %}" class="url-project">
+            <a href="{% url 'detail_view' p.id %}" class="url-project">
                 {{ p.title }}
             </a>
             <!--<form action="{% url 'delete_project' p.id %}" method="post" style="display:inline;"
@@ -31,7 +31,7 @@
     <ul>
         {% for c in proyectos_colaborativos %}
         <li>
-            <a href="{% url 'project_detail' c.id %}" class="url-project">
+            <a href="{% url 'detail_view' c.id %}" class="url-project">
                 {{ c.title }}
             </a>
             <span class="owner-project">(Owner: {{ c.owner.username }})</span>
