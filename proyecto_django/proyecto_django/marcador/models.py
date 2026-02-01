@@ -27,7 +27,7 @@ class Task(models.Model):
     status = models.CharField(max_length=100, choices=[('TODO', 'To Do'), ('IN_PROGRESS', 'In Progress'), ('DONE', 'Done')])  # Opciones: TODO, IN_PROGRESS, DONE
     priority = models.CharField(max_length=100, choices=[('LOW', 'Low'), ('MEDIUM', 'Medium'), ('HIGH', 'High')])  # Opciones: LOW, MEDIUM, HIGH
     #assigned_to = models.ForeignKey(User, blank=True, on_delete=models.CASCADE)
-    assigned_to = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)  # One-to-Many relationship with User model but can be null if the task is not assigned to anyone yet
+    assigned_to = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)  # Relación One-to-Many con el modelo User. Puede ser null si la Tarea (Task) no se ha asignado toadiva a nadie.
 
     def __str__(self):
         return f"Tarea: {self.title}, ({self.description})"

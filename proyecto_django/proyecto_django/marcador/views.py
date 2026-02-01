@@ -58,12 +58,12 @@ def edit_project(request, project_id):
         return redirect('project_detail', project_id=project.id)
     
     if request.method == 'POST':
-        form = ProjectForm(request.POST, instance=project)
+        form = ProjectForm(request.POST, instance=project, user=request.user)
         if form.is_valid():
             form.save()
             return redirect('project_detail', project_id=project.id)
     else:
-        form = ProjectForm(instance=project)
+        form = ProjectForm(instance=project, user=request.user)
     
     return render(request, 'projects/projects/project_form.html', {
         'form': form,
