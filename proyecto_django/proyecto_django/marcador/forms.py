@@ -1,6 +1,6 @@
 from django import forms
-from .models import Project
 from django.contrib.auth.models import User
+from .models import Project, Task
 
 class ProjectForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -16,3 +16,8 @@ class ProjectForm(forms.ModelForm):
         widgets = {
             'deadline': forms.DateInput(attrs={'type': 'date'}),
         }
+
+class TaskStatusForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['status']

@@ -29,8 +29,11 @@
     <h2>Tareas</h2>
     <ul>
         {% for task in project.tasks.all %}
-        <li>
-            {{ task.title }} - {{ task.status }}
+        <li style="margin-bottom: 10px;">
+            {{ task.title }} - <strong>{{ task.get_status_display }}</strong>
+            {% if user in project.collaborators.all %}
+                <a href="{% url 'edit_task_status' task.id %}" style="margin-left: 10px; font-size: 0.8em; color: var(--primary);">Cambiar estado</a>
+            {% endif %}
         </li>
         {% empty %}
         <li>No hay tareas</li>

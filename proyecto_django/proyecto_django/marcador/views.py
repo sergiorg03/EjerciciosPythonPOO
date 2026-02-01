@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Project, Task
-from .forms import ProjectForm
+from .forms import ProjectForm, TaskStatusForm
 
 # Create your views here.
 @login_required
@@ -71,3 +71,25 @@ def edit_project(request, project_id):
         'title': 'Editar Proyecto'
     })
 
+@login_required
+def edit_task_status(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    project = task.project
+    
+    # Verificar si el usuario es colaborador
+    if request.user not in project.collaborators.all():
+        return redirect('project_detail', project_id=project.id)
+    
+    if request.method == 'POST':
+        form = TaskStatusForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('project_detail', project_id=project.id)
+    else:
+        form = TaskStatusForm(instance=task)
+    
+    return render(request, 'projects/projects/project_form.html', {
+        'form': form,
+        'project': project,
+        'title': 'Editar Estado de Tarea'
+    })
