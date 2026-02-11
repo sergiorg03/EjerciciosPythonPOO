@@ -8,6 +8,10 @@ from app import models
 
 def crear_recinto(db: Session, recinto):
     nuevo = models.Recinto(**recinto.dict())
+
+    if nuevo.capacidad < 0:
+        raise HTTPException(400, "La capacidad no puede ser negativa")
+
     db.add(nuevo)
     db.commit()
     db.refresh(nuevo)
