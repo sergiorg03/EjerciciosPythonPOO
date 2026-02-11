@@ -17,6 +17,33 @@ def crear_recinto(db: Session, recinto):
 def listar_recintos(db: Session):
     return db.query(models.Recinto).all()
 
+def actualizar_recinto(db: Session, id: int, datos):
+    # Obtenemos el recinto de la BD
+    recinto_db = db.query(models.Recinto).get(id)
+
+    # Si no existe el recinto lanzamos un error 404
+    if not recinto_db:
+        raise HTTPException(404, "Recinto no encontrado")
+
+    # Cambiamos los datos
+    recinto_db.ciudad = datos.ciudad
+    recinto_db.nombre = datos.nombre
+    recinto_db.capacidad = datos.capacidad
+
+    # Guardamos
+    db.commit()
+    db.refresh(recinto_db)
+    return recinto_db
+
+def eliminar_recinto(db: Session, id: int):
+    recinto_db = db.query(models.Recinto).get(id)
+
+    if not recinto_db:
+        raise HTTPException(404, "Recinto no encontrado")
+
+    db.delete(recinto_db)
+    db.commit()
+    return recinto_db
 
 '''
     Eventos
@@ -33,24 +60,34 @@ def crear_evento(db: Session, evento):
     return nuevo
 
 
-def listar_eventos(db: Session, ciudad: str | None = None):
-    query = db.query(models.Evento).join(models.Recinto)
+def listar_eventos(db: Session, ciudad: str = None):
+    query = db.query(models.Evento).join(models.Recinto) # Obtenemos los datos del evento de la DB y unimos tablas
 
+    # Filtramos por ciudad si se introduce
     if ciudad:
+        # Filtramos por el campo 'ciudad' de la tabla 'Recinto'
         query = query.filter(models.Recinto.ciudad.ilike(f"%{ciudad}%"))
 
+    # Devolvemos los datos
     return query.all()
 
 
 def comprar_tickets(db: Session, evento_id: int, cantidad: int):
     evento = db.query(models.Evento).get(evento_id)
 
+    # Comprobamos que el evento exista
     if not evento:
         raise HTTPException(404, "Evento no encontrado")
 
+    # Comprobamos que haya aforo suficiente
     if evento.tickets_vendidos + cantidad > evento.recinto.capacidad:
         raise HTTPException(400, "Aforo insuficiente en el recinto")
 
+    # Comprobamos que la cantidad sea positiva
+    if cantidad < 0:
+        raise HTTPException(400, "La cantidad debe ser positiva")
+    
+    # Realizamos la venta de entradas
     evento.tickets_vendidos += cantidad
     db.commit()
     db.refresh(evento)

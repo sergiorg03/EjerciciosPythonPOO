@@ -19,6 +19,10 @@ class RecintoResponse(RecintoBase):
     class Config:
         from_attributes = True
 
+class RecintoUpdate(RecintoBase):
+    nombre: str
+    ciudad: str
+    capacidad: int
 
 '''
     Eventos

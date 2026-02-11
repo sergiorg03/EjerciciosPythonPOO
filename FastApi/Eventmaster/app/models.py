@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, Date
+from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -22,5 +22,5 @@ class Evento(Base):
     precio = Column(Float, nullable=False)
     tickets_vendidos = Column(Integer, default=0)
 
-    recinto_id = Column(Integer, nullable=False)
+    recinto_id = Column(Integer, ForeignKey("recintos.id"), nullable=False)
     recinto = relationship("Recinto", back_populates="eventos")

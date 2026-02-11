@@ -18,14 +18,25 @@ def root():
 '''
 
 @app.post("/recintos/", response_model=schemas.RecintoResponse)
-def crear_recinto(recinto: schemas.RecintoCreate, db: Session = Depends(get_db)):
+def crear_recinto(
+    recinto: schemas.RecintoCreate,
+    db: Session = Depends(get_db)
+):
     return crud.crear_recinto(db, recinto)
+
 
 
 @app.get("/recintos/", response_model=list[schemas.RecintoResponse])
 def listar_recintos(db: Session = Depends(get_db)):
     return crud.listar_recintos(db)
 
+@app.put("/recintos/{id}", response_model=schemas.RecintoResponse)
+def actualizar_recinto(id: int, recinto: schemas.RecintoUpdate, db: Session = Depends(get_db)):
+    return crud.actualizar_recinto(db, id, recinto)
+
+@app.delete("/recintos/{id}")
+def eliminar_recinto(id: int, db: Session = Depends(get_db)):
+    return crud.eliminar_recinto(db, id)
 
 '''
     Eventos
@@ -37,7 +48,7 @@ def crear_evento(evento: schemas.EventoCreate, db: Session = Depends(get_db)):
 
 
 @app.get("/eventos/", response_model=list[schemas.EventoResponse])
-def listar_eventos(ciudad: str | None = None, db: Session = Depends(get_db)):
+def listar_eventos(ciudad: str = None, db: Session = Depends(get_db)):
     return crud.listar_eventos(db, ciudad)
 
 
