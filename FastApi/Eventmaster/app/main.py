@@ -30,6 +30,10 @@ def crear_recinto(
 def listar_recintos(db: Session = Depends(get_db)):
     return crud.listar_recintos(db)
 
+@app.get("/recintos/{id}", response_model=schemas.RecintoResponse)
+def obtener_recinto(id: int, db: Session = Depends(get_db)):
+    return crud.obtener_recinto(db, id)
+
 @app.put("/recintos/{id}", response_model=schemas.RecintoResponse)
 def actualizar_recinto(id: int, recinto: schemas.RecintoUpdate, db: Session = Depends(get_db)):
     return crud.actualizar_recinto(db, id, recinto)

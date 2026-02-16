@@ -21,6 +21,12 @@ def crear_recinto(db: Session, recinto):
 def listar_recintos(db: Session):
     return db.query(models.Recinto).all()
 
+def obtener_recinto(db: Session, id: int):
+    recinto = db.query(models.Recinto).get(id)
+    if not recinto:
+        raise HTTPException(404, "Recinto no encontrado")
+    return recinto
+
 def actualizar_recinto(db: Session, id: int, datos):
     # Obtenemos el recinto de la BD
     recinto_db = db.query(models.Recinto).get(id)
