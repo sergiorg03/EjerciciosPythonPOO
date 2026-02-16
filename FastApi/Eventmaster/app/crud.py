@@ -1,6 +1,7 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from app import models
+from datetime import date
 
 '''
     Recintos
@@ -62,6 +63,9 @@ def eliminar_recinto(db: Session, id: int):
 def crear_evento(db: Session, evento):
     if evento.precio < 0:
         raise HTTPException(400, "El precio no puede ser negativo")
+
+    if evento.fecha < date.today():
+        raise HTTPException(400, "La fecha no puede ser pasada")
 
     nuevo = models.Evento(**evento.dict())
     db.add(nuevo)
