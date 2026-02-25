@@ -20,8 +20,13 @@ def root():
     Zonas
 '''
 
-@app.post
+@app.get("/zones/")
+def get_zones(db: Session = Depends(get_db)):
+    return crud.get_zones(db)
 
 '''
     Patinetes
 '''
+@app.get("/scooters/")
+def get_scooters(db: Session = Depends(get_db)):
+    return crud.get_scooters(db)
