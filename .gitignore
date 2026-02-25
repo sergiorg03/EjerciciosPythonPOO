@@ -5,6 +5,9 @@
 *.db
 ca.pem
 
+# Archivos git ignore de otras carpetas
+*.gitignore
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
