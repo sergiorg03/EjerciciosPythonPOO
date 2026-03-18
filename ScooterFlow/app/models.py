@@ -17,7 +17,7 @@ class Zone(Base):
     codigo_postal = Column(Integer, nullable=False)
     limite_velocidad = Column(Integer, nullable=False, default=0)
     
-    scooters = relationship("Scooter", back_populates="zona")
+    scooters = relationship("Scooter", back_populates="zona", cascade="all, delete-orphan")
 
 class Scooter (Base):
     __tablename__ = "scooter"
@@ -27,6 +27,8 @@ class Scooter (Base):
     modelo = Column(String, nullable=False)
     bateria = Column(Integer, nullable=False, default=100)
     estado = Column(Enum(ScooterStatus), nullable=False, default=ScooterStatus.disponible)
+    # Nuevo campo
+    puntuacion_usuario = Column(Float, nullable=True, default=0.0)
 
-    zona_id = Column(Integer, ForeignKey("zone.id"))
+    zona_id = Column(Integer, ForeignKey("zone.id", ondelete="CASCADE"))
     zona = relationship("Zone", back_populates="scooters")
