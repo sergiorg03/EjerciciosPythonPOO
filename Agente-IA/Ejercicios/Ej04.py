@@ -161,7 +161,7 @@ def configurar_asistente():
     agent_executor = AgentExecutor(
         agent=agent,
         tools=tools,
-        verbose=True,
+        verbose=False, # Esto muestra lo que se encuentra haciendo el agente en cada momento 
         handle_parsing_errors=True
     )
 
