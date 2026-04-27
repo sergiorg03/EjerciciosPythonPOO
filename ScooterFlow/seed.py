@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Session
 from app.database import SessionLocal, engine, Base
 from app.models import Zone, Scooter, ScooterStatus
-import traceback
 
 def seed_data():
     # Las tablas se gestionan mediante Alembic
@@ -37,6 +36,7 @@ def seed_data():
         print("¡Información introducida con éxito!")
 
     except Exception as e:
+        import traceback
         traceback.print_exc()
         db.rollback()
     finally:
