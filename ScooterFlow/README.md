@@ -19,7 +19,7 @@ proyecto_DevOps/
 │   └── versions/        # Historial de cambios del esquema
 ├── tests/
 │   ├── conftest.py      # Fixtures de pytest (BD en memoria)
-│   └── test_main.py     # Tests de la API (22 tests)
+│   └── test_main.py     # Tests de la API (6 tests)
 ├── .github/
 │   └── workflows/
 │       └── ci.yaml      # Pipeline CI/CD con GitHub Actions
@@ -134,7 +134,7 @@ python ./seed.py
 | `GET` | `/scooters/` | Listar todos los patinetes |
 | `GET` | `/scooters/{id}` | Obtener un patinete por ID |
 | `POST` | `/scooters/` | Crear un nuevo patinete |
-| `PUT` | `/scooters/{id}` | Actualizar un patinete (parcial o total) |
+| `PUT` | `/scooters/{id}` | Actualizar un patinete (parcial o total). Permite añadir `puntuacion_usuario` (0-5) |
 | `DELETE` | `/scooters/{id}` | Eliminar un patinete |
 
 ---

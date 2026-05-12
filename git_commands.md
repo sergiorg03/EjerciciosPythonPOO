@@ -104,7 +104,7 @@ Este documento resume los comandos más comunes de Git, explicando qué hacen y 
 
 ---
 
-## 10️⃣ Buenas prácticas
+## 1️⃣0️⃣ Buenas prácticas
 
 - Siempre revisa `git status` antes de hacer commits o resets.  
 - Para eliminar commits ya enviados a remoto, usa **force push** solo si estás seguro.  

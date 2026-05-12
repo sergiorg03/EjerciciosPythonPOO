@@ -4,6 +4,7 @@
 # Archivos personales
 *.db
 ca.pem
+LegalLens/backend/media/*
 
 # Archivos git ignore de otras carpetas
 *.gitignore
